@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
+
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,6 +19,16 @@ public class MainActivity extends AppCompatActivity {
         MediaPlayer mp = new MediaPlayer();
         mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
-        String aPath =
+        String aPath = "android.resource://"+getPackageName()+"/raw/ek_tu_hi_hai";
+
+        Uri audioUri = Uri.parse(aPath);
+        try {
+            mp.setDataSource(MainActivity.this,audioUri);
+            mp.prepare();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
     }
 }
